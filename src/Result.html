@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Result</title>
+  <link rel="stylesheet" href="Styles/main.css" />
+</head>
+<body>
+  <div class="result-container">
+    <div class="player-choice">
+      <p>You Picked</p>
+      <img src="Assets/rock.svg" id="player-picked" />
+    </div>
+
+    <div class="result-message">
+      <h1 id="result-text">YOU WIN</h1>
+      <p id="against">Against PC</p>
+      <button onclick="playAgain()">PLAY AGAIN</button>
+    </div>
+
+    <div class="computer-choice">
+      <p>PC Picked</p>
+      <img src="Assets/scissors.svg" id="computer-picked" />
+    </div>
+  </div>
+
+  <button class="rules-btn" onclick="openRules()">RULES</button>
+  <div class="rules-popup" id="rules-popup">
+    <img src="Assets/gamerules.svg" alt="Rules" />
+    <button onclick="closeRules()">Close</button>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

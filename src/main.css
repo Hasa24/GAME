@@ -1,0 +1,407 @@
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #8cc461;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 1000px;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+
+.header-box {
+  border: 3px solid white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title-logo img {
+  height: 30px;
+}
+
+.scoreboard {
+  display: flex;
+  gap: 1rem;
+}
+
+.score {
+  background: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.score-title {
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: #656565;
+}
+
+.score-value {
+  font-size: 68px;
+}
+
+/* === TRIANGLE CONTAINER === */
+.triangle-container {
+  position: relative;
+  width: 350px;
+  height: 320px;
+  margin: 60px auto;
+}
+
+.line {
+  position: absolute;
+  height: 6px;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.line-top {
+  width: 200px;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.line-left {
+  width: 210px;
+  top: 40px;
+  left: 30px;
+  transform: rotate(60deg);
+  transform-origin: top left;
+}
+
+.line-right {
+  width: 210px;
+  top: 40px;
+  right: 30px;
+  transform: rotate(-60deg);
+  transform-origin: top right;
+}
+
+/* === CHOICES === */
+.choices {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.choice {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+.choice img.circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.choice img.icon {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  z-index: 1;
+}
+
+.choice[data-choice="rock"] {
+  top: 0;
+  left: 0;
+}
+
+.choice[data-choice="scissors"] {
+  top: 0;
+  right: 0;
+}
+
+.choice[data-choice="paper"] {
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* === RESULT PANEL === */
+#result-panel {
+  margin-top: 3rem;
+}
+
+.result {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.picked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.picked p {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.result-choice {
+  width: 150px;
+  height: 150px;
+  position: relative;
+}
+
+.result-choice .circle {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.result-choice .icon {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 45px;
+  left: 45px;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.winner-glow .glow-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.glow1 {
+  width: 180px;
+  height: 180px;
+  background: rgba(46, 154, 37, 0.4);
+  animation-delay: 0s;
+}
+
+.glow2 {
+  width: 230px;
+  height: 230px;
+  background: rgba(46, 154, 37, 0.25);
+  animation-delay: 0.3s;
+}
+
+.glow3 {
+  width: 280px;
+  height: 280px;
+  background: rgba(46, 154, 37, 0.15);
+  animation-delay: 0.6s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+/* === RESULT TEXT === */
+.result-message h2 {
+  font-size: 24px;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.result-main {
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+}
+
+.result-sub {
+  font-size: 16px;
+  color: white;
+}
+
+/* === BUTTONS === */
+button {
+  background: white;
+  color: #6b6b6b;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 5px;
+}
+
+/* === RULES BUTTON === */
+#rules-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: none;
+  border: 2px solid white;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* === HURRAY PANEL === */
+#hurray-panel {
+  background-color: #7ED957;
+  height: 100vh;
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hurray {
+  text-align: center;
+}
+
+.trophy {
+  width: 120px;
+  margin-bottom: 1rem;
+}
+
+.hurray h2 {
+  font-size: 48px;
+  margin: 0;
+}
+
+.hurray p {
+  font-size: 20px;
+  margin: 5px 0 20px 0;
+}
+.rules-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rules-card {
+  position: relative;
+  background-color: #004429;
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 8px solid white;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+}
+
+.rules-card h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.rules-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.rules-list li {
+  margin: 1rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #FFD600;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 6px;
+  border-radius: 2px;
+}
+.rules-popup {
+  position: fixed;
+  right: 20px;
+  bottom: 80px; 
+  z-index: 1000;
+  display: block;
+  width: auto;
+}
+.rules-card {
+  position: relative;
+  background-color: #004429;
+  color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  border: 8px solid white;
+  width: 320px; 
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+  .close-btn {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background: red;
+  color: white;
+  border: 4px solid white;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.rules-popup {
+  max-width: 100%;
+}
+

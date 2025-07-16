@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - Tie</title>
+    <link rel="stylesheet" href="css/tie.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ROCK<br>PAPER<br>SCISSORS</h1>
+            <div class="scoreboard">
+                <div class="score">
+                    <p>COMPUTER SCORE</p>
+                    <h2 id="computer-score">15</h2>
+                </div>
+                <div class="score">
+                    <p>YOUR SCORE</p>
+                    <h2 id="player-score">15</h2>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="selection">
+                <div class="picked">
+                    <p>YOU PICKED</p>
+                    <div class="circle">
+                        <img src="assets/fist-icon.png" alt="Your Pick">
+                    </div>
+                </div>
+
+                <div class="result">
+                    <h2>TIE UP</h2>
+                    <button onclick="window.location.href='index.html'">REPLAY</button>
+                </div>
+
+                <div class="picked">
+                    <p>PC PICKED</p>
+                    <div class="circle">
+                        <img src="assets/fist-icon.png" alt="PC Pick">
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <button class="rules-btn" onclick="toggleRules()">RULES</button>
+
+        <div id="rules-popup" class="popup">
+            <div class="popup-content">
+                <h3>Rules</h3>
+                <p>Rock beats Scissors<br>Scissors beats Paper<br>Paper beats Rock</p>
+                <button onclick="toggleRules()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+</body>
+</html>

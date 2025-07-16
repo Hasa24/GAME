@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #89C15E;
+      color: white;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 3px solid white;
+      border-radius: 12px;
+      margin: 2rem auto;
+      padding: 1rem 2rem;
+      max-width: 900px;
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      line-height: 1.2;
+    }
+
+    .scoreboard {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .score {
+      background-color: white;
+      color: black;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .score p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .score h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .game-board {
+      position: relative;
+      width: 400px;
+      height: 350px;
+      margin: 0 auto;
+    }
+
+    .line {
+      position: absolute;
+      z-index: 0;
+    }
+
+
+
+    .line-diagonal-left {
+      top: 100px;
+      left: 85px;
+      width: 150px;
+      transform: rotate(-60deg);
+      transform-origin: top left;
+    }
+
+    .line-diagonal-right {
+      top: 100px;
+      left: 85px;
+      width: 150px;
+      transform: rotate(60deg);
+      transform-origin: top right;
+    }
+
+    .option {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      padding: 20px;
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .option img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .rock {
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 16px solid #0074B6;
+    }
+
+    .paper {
+      bottom: 30px;
+      left: 0;
+      border: 16px solid #FFA943;
+    }
+
+    .scissors {
+      bottom: 30px;
+      right: 0;
+      border: 16px solid #BD00FF;
+    }
+
+    .rules-btn {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background-color: transparent;
+      border: 2px solid white;
+      color: white;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .rules-modal {
+      display: none;
+      position: absolute;
+      right: 30px;
+      bottom: 80px;
+      background-color: #004429;
+      border: 5px solid white;
+      color: white;
+      border-radius: 12px;
+      padding: 1rem;
+      width: 260px;
+      z-index: 2;
+    }
+
+    .rules-modal h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
+    .rules-modal ul {
+      padding-left: 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      background-color: red;
+      border: 2px solid white;
+      color: white;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">
+      ROCK<br />PAPER<br />SCISSORS
+    </div>
+    <div class="scoreboard">
+      <div class="score">
+        <p>Computer Score</p>
+        <h2 id="computer-score">0</h2>
+      </div>
+      <div class="score">
+        <p>Your Score</p>
+        <h2 id="user-score">0</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="game-board">
+     <svg class="line line-horizontal" width="133" height="0">
+    <line x1="582" y1="393" x2="1000" y2="750" stroke="#ffffff"/>
+ </svg>
+    <img src="Assets/line2.svg" class="line line-diagonal-left" alt="Left Line" />
+    <img src="Assets/line3.svg" class="line line-diagonal-right" alt="Right Line" />
+
+    <!-- Options -->
+    <div class="option rock" onclick="choose('rock')">
+      <img src="Assets/rock.svg" alt="rock" />
+    </div>
+    <div class="option paper" onclick="choose('paper')">
+      <img src="Assets/paper.svg" alt="paper" />
+    </div>
+    <div class="option scissors" onclick="choose('scissors')">
+      <img src="Assets/scissors.svg" alt="scissors" />
+    </div>
+  </div>
+
+  <button class="rules-btn" onclick="showRules()">RULES</button>
+
+  <div class="rules-modal" id="rules-box">
+    <button class="close-btn" onclick="hideRules()">X</button>
+    <h3>Game Rules</h3>
+    <ul>
+      <li>Rock beats scissors, scissors beat paper, and paper beats rock.</li>
+      <li>Agree ahead of time whether you’ll count off "rock, paper, scissors, shoot" or just "rock, paper, scissors."</li>
+      <li>Use rock, paper, scissors to settle minor decisions or simply play to pass the time.</li>
+      <li>If both players lay down the same hand, each player lays down another hand.</li>
+    </ul>
+  </div>
+
+  <script>
+    function choose(option) {
+      localStorage.setItem('userChoice', option);
+      const choices = ['rock', 'paper', 'scissors'];
+      const pc = choices[Math.floor(Math.random() * 3)];
+      localStorage.setItem('pcChoice', pc);
+
+      if (option === pc) {
+        localStorage.setItem('result', 'Tie Up');
+      } else if (
+        (option === 'rock' && pc === 'scissors') ||
+        (option === 'paper' && pc === 'rock') ||
+        (option === 'scissors' && pc === 'paper')
+      ) {
+        localStorage.setItem('result', 'You Win');
+        updateScore('user');
+      } else {
+        localStorage.setItem('result', 'You Lost');
+        updateScore('computer');
+      }
+
+      window.location.href = 'result.html';
+    }
+
+    function updateScore(player) {
+      let score = parseInt(localStorage.getItem(`${player}Score`)) || 0;
+      localStorage.setItem(`${player}Score`, ++score);
+    }
+
+    function showRules() {
+      document.getElementById('rules-box').style.display = 'block';
+    }
+
+    function hideRules() {
+      document.getElementById('rules-box').style.display = 'none';
+    }
+
+    // Load Scores
+    document.getElementById('user-score').textContent =
+      localStorage.getItem('userScore') || 0;
+    document.getElementById('computer-score').textContent =
+      localStorage.getItem('computerScore') || 0;
+  </script>
+</body>
+</html>
